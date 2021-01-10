@@ -7,31 +7,42 @@
       <%= render 'form', book: @book %>
     </div>
     <div class='col-md-8 offset-md-1'>
-  		<h2>Book detail</h2>
-  		<table class='table'>
-  		  <tr>
-  		    <td><%= link_to user_path(@book_show.user) do %>
-            <%= attachment_image_tag(@book_show.user, :profile_image, :fill, 100, 100, fallback: "no-image-icon.jpg") %><br>
-            <%= @book_show.user.name %>
-            <% end %>
-          </td>
-          <td><%= link_to @book_show.title, book_path(@book_show) %></td>
-          <td><%= @book_show.body %></td>
-          <% if @book_show.user_id == current_user.id %>
-          <td><%= link_to 'Edit', edit_book_path(@book_show), class: "btn btn-sm btn-success edit_book_#{@book_show.id}" %></td>
-          <td><%= link_to 'Destroy', book_path(@book_show), method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger destroy_book_#{@book.id}"%></td>
-          <% end %>
-        </tr>
-      </table>
+
+
+  		  <div>
+  		    <div><%= link_to "←", :back %></div>
+  		    <h2>Book detail</h2>
+  		  </div>
+        <div class="border rounded">
+            <div>
+              <div><%= attachment_image_tag(@book_show.user, :profile_image, size: "40x40", fallback: "no-image-icon.jpg") %></div>
+              <div><%= @book_show.user.name%></div>
+              <% if @book_show.user_id == current_user.id %>
+              <%= link_to 'Edit', edit_book_path(@book_show), class: "btn btn-sm btn-success edit_book_#{@book_show.id}" %>
+              <%= link_to 'Destroy', book_path(@book_show), method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger destroy_book_#{@book.id}"%>
+              <% end %>
+            </div>
+            <div>
+              <div><%= @book_show.body %></div>
+              <p><%= @book_show.created_at %></p>
+            </div>
+            <div class="d-flex flex-row" id="book_<%= @book_show.id%>">
+              <div class="favorite-btn d-inline p-2"><%= render "favorites/favorite-btn", book: @book_show %></div>
+              <div class="p-2 d-inline"> □<%= @book_show.book_comments.count %></div>
+            </div>
+        </div>
+
+
       <div class="book_comments">
         <%= render "book_comments/book_comment_index", book_show: @book_show %>
       </div>
       <div class="book_comments_form">
         <%= form_with model:[@book_show, @book_comment] do |f| %>
-         <%= f.text_area :comment, size:"90x5" %>
+         <%= f.text_area :comment, size:"40x5" %>
          <%= f.submit '送信'%>
         <% end %>
       </div>
     </div>
   </div>
 </div>
+
