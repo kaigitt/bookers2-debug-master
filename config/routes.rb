@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'search/search'
   get 'favorites/create'
   get 'favorites/destroy'
   devise_for :users
@@ -9,5 +10,6 @@ Rails.application.routes.draw do
   end
   root to: 'homes#top'
   get 'home/about' => 'homes#about'
+  get '/search' => 'search#search'
 
 end
