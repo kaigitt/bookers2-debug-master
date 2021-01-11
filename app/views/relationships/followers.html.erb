@@ -1,0 +1,11 @@
+<div class="container">
+  <div class="row">
+    <div class="w-100 d-flex justify-content">
+      <% if @users.exists? %>
+        <%= render "users/index", users: @users %>
+      <% else %>
+      <h2>ユーザはいません</h2>
+      <% end %>
+      </div>
+  </div>
+</div>
