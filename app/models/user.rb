@@ -12,7 +12,12 @@ class User < ApplicationRecord
   attachment :profile_image
   has_many :books, dependent: :destroy
   has_many :favorites, dependent: :destroy
+  has_many :favorite_books, through: :favorites, source: :book #お気に入りしている本取得
   has_many :book_comments, dependent: :destroy
+  has_many :commented_books, through: :book_comments, source: :book #コメントした投稿取得
+
+
+
 
   # フォロー機能
   has_many :follower, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy # フォロー取得
@@ -34,7 +39,6 @@ end
 def following?(user)
   following_user.include?(user)
 end
-
 
   # 検索用
   def self.search_for(content, method)
