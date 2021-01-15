@@ -47,6 +47,11 @@ class BooksController < ApplicationController
     redirect_to books_path
   end
 
+  def destroy_all
+    Book.all.delete
+
+  end
+
   private
 
   def book_params

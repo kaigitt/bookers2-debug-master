@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     resource :favorites, only: [:create, :destroy]
     resources :book_comments, only: [:create, :destroy]
   end
+
   resources :users do
     get '/follows' => 'relationships#follows', as: 'follows'
     get '/followers' => 'relationships#followers', as: 'followers'
@@ -17,6 +18,4 @@ Rails.application.routes.draw do
   get '/search' => 'search#search'
   post 'follow/:id' => 'relationships#follow', as: 'follow' #フォローする
   post 'unfollow/:id' => 'relationships#unfollow', as: 'unfollow' #フォロー外す
-
-
 end
